@@ -11,7 +11,7 @@
                     <span *ngIf="submitted && createReserve.invalid" class="badge badge-danger">TODOS LOS CAMPOS SON
                         OBLIGATORIOS</span>
                     
-                        <app-qr-code-reader></app-qr-code-reader>
+                    <app-qr-code-reader   (returnedData) = recibirDataQR($event)   ></app-qr-code-reader>
 
                     <form class="mt-4" [formGroup]="createReserve" (ngSubmit)="agregarEditarEmpleado()">
 

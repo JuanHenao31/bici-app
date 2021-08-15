@@ -37,6 +37,11 @@ export class CreateReserveComponent implements OnInit {
     this.esEditar();
   }
 
+  recibirDataQR(data : String) {
+    console.log(data)  
+    this.createReserve.get('idBike')?.setValue(data)
+  }
+
   agregarEditarEmpleado() {
     this.submitted = true;
 

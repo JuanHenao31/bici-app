@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { BarcodeFormat, ResultMetadataType } from '@zxing/library';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 
@@ -8,6 +8,8 @@ import { ZXingScannerComponent } from '@zxing/ngx-scanner';
   styleUrls: ['./qr-code-reader.component.css']
 })
 export class QrCodeReaderComponent implements OnInit {
+
+  @Output() returnedData = new EventEmitter<string>();
 
   public scannerEnabled: boolean = true;
   public information: string = "";
@@ -38,6 +40,7 @@ export class QrCodeReaderComponent implements OnInit {
   public scanSuccessHandler($event: any) {
     this.scannerEnabled = false;  
     this.information = $event;
+    this.returnedData.emit(this.information)
   }
   
   public enableScanner() {
