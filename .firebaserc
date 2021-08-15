@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "bici-app-c407d": {
+      "hosting": {
+        "reserves": [
+          "reserves-bccc9"
+        ]
+      }
+    }
+  }
+}
