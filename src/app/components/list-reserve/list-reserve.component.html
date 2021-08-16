@@ -21,7 +21,6 @@
                     <td>{{ reserve.idBike }}</td>
                     <td>{{ reserve.documento }}</td>
                     <td>{{ reserve.total | currency }}</td>
-
                     <td>
                       <i class="fas fa-edit fa-lg text-info mr-2" [routerLink]="['/editreserve/', reserve.id]"></i>
                       <i (click)="deleteReserve(reserve.id)" class="fas fa-trash-alt fa-lg text-danger"></i>
