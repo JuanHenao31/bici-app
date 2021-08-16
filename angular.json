@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "empleados": {
+    "reserves": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/empleados",
+            "outputPath": "dist/reserves",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -50,8 +50,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -65,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "empleados:build"
+            "browserTarget": "reserves:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "empleados:build:production"
+              "browserTarget": "reserves:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "empleados:build"
+            "browserTarget": "reserves:build"
           }
         },
         "test": {
@@ -113,11 +113,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "empleados:serve"
+            "devServerTarget": "reserves:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "empleados:serve:production"
+              "devServerTarget": "reserves:serve:production"
             }
           }
         },
@@ -128,7 +128,7 @@
       }
     }
   },
-  "defaultProject": "empleados",
+  "defaultProject": "reserves",
   "cli": {
     "analytics": "8e761994-bfc2-405d-a188-4966b5cf1bbc"
   }

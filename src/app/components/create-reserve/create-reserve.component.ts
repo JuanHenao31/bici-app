@@ -17,7 +17,7 @@ export class CreateReserveComponent implements OnInit {
   titulo = 'Agregar Reserva';
 
   constructor(private fb: FormBuilder,
-    private _empleadoService: ReserveService,
+    private _reserveService: ReserveService,
     private router: Router,
     private toastr: ToastrService,
     private aRoute: ActivatedRoute) {
@@ -68,12 +68,12 @@ export class CreateReserveComponent implements OnInit {
     }
 
     this.loading = true;
-    this._empleadoService.agregarEmpleado(empleado).then(() => {
-      this.toastr.success('El empleado fue registrado con exito!', 'Empleado Registrado', {
+    this._reserveService.agregarEmpleado(empleado).then(() => {
+      this.toastr.success('La reserva fue registrada con exito!', 'Reserva Registrada', {
         positionClass: 'toast-bottom-right'
       });
       this.loading = false;
-      this.router.navigate(['/list-empleados']);
+      this.router.navigate(['/list-reserves']);
     }).catch(error => {
       console.log(error);
       this.loading = false;
@@ -92,12 +92,12 @@ export class CreateReserveComponent implements OnInit {
 
     this.loading = true;
 
-    this._empleadoService.actualizarEmpleado(id, empleado).then(() => {
+    this._reserveService.actualizarEmpleado(id, empleado).then(() => {
       this.loading = false;
       this.toastr.info('El empleado fue modificado con exito', 'Empleado modificado', {
         positionClass: 'toast-bottom-right'
       })
-      this.router.navigate(['/list-empleados']);
+      this.router.navigate(['/list-reserves']);
     })
   }
 
@@ -106,7 +106,7 @@ export class CreateReserveComponent implements OnInit {
     if (this.id !== null) {
       this.titulo = 'Editar Reserva'
       this.loading = true;
-      this._empleadoService.getEmpleado(this.id).subscribe(data => {
+      this._reserveService.getEmpleado(this.id).subscribe(data => {
         this.loading = false;
 
 

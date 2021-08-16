@@ -1,8 +1,8 @@
 {
   "hosting": [
     {
-      "target": "empleados",
-      "public": "dist/empleados",
+      "target": "reserves",
+      "public": "dist/reserves",
       "ignore": [
         "**/.*"
       ],
