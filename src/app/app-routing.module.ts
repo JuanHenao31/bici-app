@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BarCodeReaderComponent } from './components/bar-code-reader/bar-code-reader.component';
 import { CreateReserveComponent } from './components/create-reserve/create-reserve.component';
 import { ListReservesComponent } from './components/list-reserve/list-reserve.component';
 import { QrCodeReaderComponent } from './components/qr-code-reader/qr-code-reader.component';
@@ -10,6 +11,8 @@ const routes: Routes = [
   { path: 'create-reserve', component: CreateReserveComponent },
   { path: 'editreserve/:id', component: CreateReserveComponent },
   { path: 'qrReader', component: QrCodeReaderComponent },  
+  { path: 'barCode', component: BarCodeReaderComponent },  
+
   { path: '**', redirectTo: 'list-reserves', pathMatch: 'full' },
 ];
 

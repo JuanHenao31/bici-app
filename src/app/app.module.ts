@@ -18,6 +18,11 @@ import { environment } from 'src/environments/environment';
 import { QrCodeReaderComponent } from './components/qr-code-reader/qr-code-reader.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
+import {NgxBarcodeScannerModule} from '@eisberg-labs/ngx-barcode-scanner';
+import { BarCodeReaderComponent } from './components/bar-code-reader/bar-code-reader.component';
+import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
+
+
 
 @NgModule({
   declarations: [
@@ -26,6 +31,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     CreateReserveComponent,
     NavbarComponent,
     QrCodeReaderComponent,
+    BarCodeReaderComponent,   
+    
   ],
   imports: [
     BrowserModule,
@@ -35,7 +42,9 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    NgxBarcodeScannerModule,
+    BarcodeScannerLivestreamModule 
 
   ],
   providers: [],
