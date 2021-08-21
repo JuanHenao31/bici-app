@@ -7,20 +7,40 @@
             <table *ngIf="reserves.length > 0" class="table table-sm table-striped mt-5 ">
                 <thead>
                   <tr>
-                    <th>Nombre del Cliente</th>
-                    <th>Bicicleta Asignada</th>
-                    <th>Numero de Documento</th>
-                    <th>Total</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Vehiculos</th>
+                    <th scope="col">Valor por hora</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">N° Documento</th>
+                    <th scope="col">Hora Salida </th>
+                    <th scope="col">Hora llegada</th>
+                    <th scope="col">Total Horas</th>
+                    <th scope="col">Valor Total</th>
+                    <th scope="col">Comision</th>
+                    <th scope="col">Valor Final</th>
+            
+                    <th scope="col">Actions</th>
 
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let reserve of reserves">
-                    <td>{{ reserve.nameOfClient }}</td>
-                    <td>{{ reserve.idBike }}</td>
-                    <td>{{ reserve.documento }}</td>
-                    <td>{{ reserve.total | currency }}</td>
+                    <th scope="row">{{reserve.amount}}</th>
+                    <td>{{reserve.idBikes}}</td>
+                    <td>{{reserve.valuePerHour}}</td>
+            
+                    <td>{{reserve.client}}</td>
+            
+                    <td>{{reserve.documentNumber}}</td>
+                    <td>{{reserve.departureTime | date:"MMM d, y h:mm:ss a" }}</td>
+                    <td>{{reserve.arriveTime}}</td>
+                    <td>{{reserve.totalTime}}</td>
+            
+                    
+                    <td>{{reserve.totalValue}}</td>
+                    <td>{{reserve.commision}}</td>
+                    <td>{{reserve.finalValue}}</td>
                     <td>
                       <i class="fas fa-edit fa-lg text-info mr-2" [routerLink]="['/editreserve/', reserve.id]"></i>
                       <i (click)="deleteReserve(reserve.id)" class="fas fa-trash-alt fa-lg text-danger"></i>
