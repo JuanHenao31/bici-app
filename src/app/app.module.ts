@@ -22,6 +22,9 @@ import {NgxBarcodeScannerModule} from '@eisberg-labs/ngx-barcode-scanner';
 import { BarCodeReaderComponent } from './components/bar-code-reader/bar-code-reader.component';
 import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
 
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
+
 
 
 @NgModule({
@@ -44,7 +47,9 @@ import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
     BrowserAnimationsModule,
     ZXingScannerModule,
     NgxBarcodeScannerModule,
-    BarcodeScannerLivestreamModule 
+    BarcodeScannerLivestreamModule,
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule,
 
   ],
   providers: [],

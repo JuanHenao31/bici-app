@@ -15,9 +15,11 @@ export class CreateReserveComponent implements OnInit {
   submitted = false;
   loading = false;
   id: string | null;
-  titulo = 'Agregar Reserva';
+  titulo = 'Agrega Tu Reserva';
   public page: number;
   public pageSize: number;
+
+
   
   constructor(private fb: FormBuilder,
     private _reserveService: ReserveService,
@@ -26,7 +28,7 @@ export class CreateReserveComponent implements OnInit {
     private aRoute: ActivatedRoute) {
 
       this.page = 1;
-      this.pageSize = 5;
+      this.pageSize = 5;   
 
     this.createReserve = this.fb.group({
 
@@ -37,9 +39,9 @@ export class CreateReserveComponent implements OnInit {
       documentNumber: ['', Validators.required],
       departureTime: ['', Validators.required],
       arriveTime: ['', Validators.required],
-      totalValue: ['', Validators.required],
+      totalValue:[{value: '', disabled: true}, Validators.required],
       commision: ['', Validators.required],
-      finalValue: ['', Validators.required],
+      finalValue: [{value: '', disabled: true}, Validators.required],
 
     })
 
@@ -54,8 +56,6 @@ export class CreateReserveComponent implements OnInit {
 
   recibirDataQR(data: String) {
 
-    console.log(data + "  " + this.createReserve.get('idBikes')?.value.includes(data))
-
     if (!this.createReserve.get('idBikes')?.value.includes(data)) {
 
       if (this.createReserve.get('idBikes')?.value.includes("Vehiculos")) {
@@ -64,8 +64,6 @@ export class CreateReserveComponent implements OnInit {
       const vehicles = this.createReserve.get('idBikes')?.value + "  " + data
       this.createReserve.get('idBikes')?.setValue(vehicles)
     }
-
-
   }
 
   agregarEditarEmpleado() {
@@ -84,8 +82,19 @@ export class CreateReserveComponent implements OnInit {
   }
 
   agregarEmpleado() {
+
+    const date1 = this.createReserve.value.departureTime.toString();
+    const date2 = this.createReserve.value.arriveTime.toString();
+    const diffInMs = Date.parse(date2) - Date.parse(date1);
+    const diffInHours = Math.ceil(diffInMs / 1000 / 60 / 60);
+
+    const totalValue = this.createReserve.value.valuePerHour * this.createReserve.value.amount * diffInHours
+    const finalValue = totalValue+this.createReserve.value.commision
+    
+    console.log(totalValue, finalValue)
     const empleado: any = {
 
+      totalTime : diffInHours,
       fechaCreacion: new Date(),
       fechaActualizacion: new Date(),
       amount: this.createReserve.value.amount,
@@ -95,13 +104,10 @@ export class CreateReserveComponent implements OnInit {
       documentNumber: this.createReserve.value.documentNumber,
       departureTime: this.createReserve.value.departureTime,
       arriveTime: this.createReserve.value.arriveTime,
-      totalValue: this.createReserve.value.totalValue,
+      totalValue:totalValue,
       commision: this.createReserve.value.commision,
-      finalValue: this.createReserve.value.finalValue,
-
-
+      finalValue: finalValue,
     }
-
     this.loading = true;
     this._reserveService.agregarEmpleado(empleado).then(() => {
       this.toastr.success('La reserva fue registrada con exito!', 'Reserva Registrada', {
@@ -117,7 +123,17 @@ export class CreateReserveComponent implements OnInit {
 
   editarEmpleado(id: string) {
 
+    const date1 = this.createReserve.value.departureTime.toString();
+    const date2 = this.createReserve.value.arriveTime.toString();
+    const diffInMs = Date.parse(date2) - Date.parse(date1);
+    const diffInHours = Math.ceil(diffInMs / 1000 / 60 / 60);
+
+    const totalValue = this.createReserve.value.valuePerHour * this.createReserve.value.amount * diffInHours
+    const finalValue = totalValue+this.createReserve.value.commision
+    
+
     const empleado: any = {
+      totalTime : diffInHours,
       fechaCreacion: new Date(),
       fechaActualizacion: new Date(),
       amount: this.createReserve.value.amount,
@@ -127,9 +143,9 @@ export class CreateReserveComponent implements OnInit {
       documentNumber: this.createReserve.value.documentNumber,
       departureTime: this.createReserve.value.departureTime,
       arriveTime: this.createReserve.value.arriveTime,
-      totalValue: this.createReserve.value.totalValue,
+      totalValue: totalValue,
       commision: this.createReserve.value.commision,
-      finalValue: this.createReserve.value.finalValue,
+      finalValue: finalValue,
     }
 
     this.loading = true;
@@ -146,22 +162,27 @@ export class CreateReserveComponent implements OnInit {
 
   esEditar() {
     if (this.id !== null) {
-      this.titulo = 'Editar Reserva'
+      this.titulo = 'Edita Tu Reserva'
       this.loading = true;
 
       this._reserveService.getEmpleado(this.id).subscribe(data => {
         this.loading = false;
 
+        const departureTime = getConvertedDate(data,'departureTime') 
+        const arriveTime = getConvertedDate(data,'arriveTime') 
+
+        console.log(data.payload.data())
 
         this.createReserve.setValue({
+
 
           amount: data.payload.data()['amount'],
           client: data.payload.data()['client'],
           idBikes: data.payload.data()['idBikes'],
           valuePerHour: data.payload.data()['valuePerHour'],
           documentNumber: data.payload.data()['documentNumber'],
-          departureTime: data.payload.data()['departureTime'],
-          arriveTime: data.payload.data()['arriveTime'],
+          departureTime: departureTime,
+          arriveTime: arriveTime,
           totalValue: data.payload.data()['totalValue'],
           commision: data.payload.data()['commision'],
           finalValue: data.payload.data()['finalValue'],
@@ -173,3 +194,12 @@ export class CreateReserveComponent implements OnInit {
   }
 
 }
+function getConvertedDate(param: any, filter : string) {
+return new Date(param.payload.data()[filter]['seconds'] * 1000 + param.payload.data()[filter]['nanoseconds'])
+
+}
+
+function cargarDataReserva() {
+  throw new Error('Function not implemented.');
+}
+
